@@ -43,7 +43,7 @@ class City(models.Model):
     #     'AQI', related_name='aqi', on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.city_id)
+        return str(self.city_name)
 
     class Meta:
         db_table = 'city'
@@ -111,9 +111,17 @@ class Favorite(models.Model):
     mem = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.created)
+        return str(self.created)    
 
     class Meta:
         db_table = 'favorite'
         # ordering = ('created')
 
+#User的延伸欄位
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name='profile')
+    fullName = models.CharField(max_length=128)
+    address = models.CharField(max_length=128, blank=True, null=True)
+
+    def __str__(self):
+        return self.fullName + ' (' + self.user.username + ')'
