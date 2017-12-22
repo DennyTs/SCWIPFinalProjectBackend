@@ -35,9 +35,9 @@ from django.contrib.auth import logout as auth_logout
 #     queryset = Group.objects.all()
 #     serializer_class = GroupSerializer
 
-# class InstitutionUnitList(generics.ListAPIView):
-#     queryset = Institutions_Unit.objects.all()
-#     serializer_class = InstitutionUnitSerializer
+class InstitutionUnitList(generics.ListAPIView):
+    queryset = Institutions_Unit.objects.all()
+    serializer_class = InstitutionUnitSerializer
 
 
 def home(request):
@@ -58,6 +58,11 @@ def about(request):
     Render the about page
     '''
     return render(request, 'about.html')
+
+
+def institution_detail(request, pk):
+    institution = Institution.objects.get(pk=pk)
+    return render(request, 'institution.html', {'institution': institution})
 
 
 #輸出機構及其對應的留言

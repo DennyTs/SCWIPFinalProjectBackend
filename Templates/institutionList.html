@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <title>好地方</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+        {% include 'main.html' %}
+    <h2>安心上路</h2>
+    <br> 
+  {% for items in itemList %}
+    {% for item in items %}
+      {% if forloop.first %}
+        <h3>{{ item.ins_name }}</h3>
+        <p>{{ item.address}}</p>
+        <div class="articleContent"></div>
+      {% else %}
+        <div class="commentDiv">
+          <span class="comment">{{ item.com_title }}</span><br>
+          <span class="commentcon">{{ item.com_con}}</span>
+        </div>
+      {% endif %}
+    {% endfor %}
+    <hr>
+  {% endfor %}
+    
+  </body>
+</html>
+

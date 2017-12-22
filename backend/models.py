@@ -39,8 +39,8 @@ class City(models.Model):
     city_id = models.IntegerField(primary_key=True)
     city_name = models.CharField(max_length=10)
     area_name = models.CharField(max_length=10)
-    # aqi = models.ForeignKey(
-    #     'AQI', related_name='aqi', on_delete=models.CASCADE)
+    aqi = models.ForeignKey(
+        'AQI', related_name='aqi', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.city_name)
@@ -75,10 +75,10 @@ class Institutions_Unit(models.Model):
         unique_together = ("Ins_id", "Cap_id")
 
 class Aqi(models.Model):
-    # aqi_id = models.IntegerField(primary_key=True)
+    aqi_id = models.AutoField(primary_key=True)
     aqi_area = models.CharField(max_length=10)
     aqi_index = models.IntegerField()
-    aqi_pubdate = models.DateTimeField()
+    aqi_pubdate = models.DateTimeField(auto_now_add=True)
        
     def __str__(self):
         return str(self.aqi_area)
@@ -92,7 +92,8 @@ class Comment(models.Model):
     com_con = models.TextField(max_length=500, blank=False)
     com_created = models.DateTimeField(default = timezone.now)
     mem = models.ForeignKey(User, on_delete=models.CASCADE)
-    ins = models.ForeignKey('Institution', related_name='institutioncomment', on_delete=models.CASCADE)
+    ins = models.ForeignKey(
+        'Institutions_Unit', related_name='institution_Unitcomment', on_delete=models.CASCADE)
 
     
     def __str__(self):
@@ -100,6 +101,8 @@ class Comment(models.Model):
 
     class Meta:
         db_table = 'comment'
+        # unique_together = ("ins", "com_title")
+
         # ordering = ('Com_created')
 
 

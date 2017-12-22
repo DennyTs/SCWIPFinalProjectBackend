@@ -1,29 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>好地方</title>
+<head>
+
     <meta charset="utf-8">
-  </head>
-  <body>
-        {% include 'main.html' %}
-    <h2>安心上路</h2>
-    <br> 
-  {% for items in itemList %}
-    {% for item in items %}
-      {% if forloop.first %}
-        <h3>{{ item.ins_name }}</h3>
-        <p>{{ item.address}}</p>
-        <div class="articleContent"></div>
-      {% else %}
-        <div class="commentDiv">
-          <span class="comment">{{ item.com_title }}</span><br>
-          <span class="commentcon">{{ item.com_con}}</span>
+    <title>{{ institution.ins_name }} | Requiescat in Pace</title>
+    <link href="//fonts.googleapis.com/css?family=Lemon" rel="stylesheet" type="text/css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//djangogirlstaipei.github.io/assets/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="header">
+        <h1 class="site-title text-center">
+            <a href="/">Requiescat in Pace</a>
+        </h1>
+    </div>
+    <div class="container post post-detail">
+        <div class="post-heading">
+            <h1 class="title">{{ institution.ins_name }}</h1>
         </div>
-      {% endif %}
-    {% endfor %}
-    <hr>
-  {% endfor %}
-    
-  </body>
+        <div class="location">
+            <i class="fa fa-map-marker"></i>
+            <span id="location-content">{{ institution.address }}</span>
+        </div>
+        <div id="map-canvas" class="map"></div>
+        <div class="post-content">
+            {{ institution.agent }}
+            {{ institution.phone }}
+            {{ Institutions_Unit.cap_name }}
+        </div>
+        <hr class="fancy-line">
+    </div>
+    <script src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&sensor=false"></script>
+    <script src="//djangogirlstaipei.github.io/assets/js/map.js"></script>
+</body>
 </html>
 

@@ -5,7 +5,9 @@ from . import views
 urlpatterns = [
     # url(r'^institutionUnits/$', views.InstitutionUnitList.as_view()),
     url(r'^main/$', views.main, name='main'),
-    url(r'^institutionList/$', views.institution, name='institution'),
+    url(r'^institutionList/$', views.institution, name='institutionList'),
+    url(r'^institution/(?P<pk>\d+)/$', views.institution_detail, name='institution_detail'),
+    url(r'^institution/$', views.home, name='institution'),
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.login, name = 'login'),
     url(r'^logout/$', views.logout, name='logout'),
