@@ -15,15 +15,15 @@ def fillAqi(dirname, AQIJson):
 
 def clasify(Area):
     if(Area == '北部'):
-        return ['臺北市', '基隆市', '新北市']
+        return ['臺北市', '基隆市', '新北市', '桃園市']
     if(Area == '花東'):
-        return ['花蓮縣', '台東縣']
+        return ['花蓮縣', '臺東縣']
     if(Area == '高屏'):
         return ['高雄市', '屏東縣']
     if(Area == '雲嘉南'):
         return ['雲林縣', '嘉義縣', '臺南市']
     if(Area == '中部'):
-        return ['台中市', '彰化縣', '南投縣']
+        return ['臺中市', '彰化縣', '南投縣']
     if(Area == '竹苗'):
         return ['新竹縣', '苗栗縣']
     if(Area == '澎湖'):

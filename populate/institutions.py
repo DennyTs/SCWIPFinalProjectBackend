@@ -21,7 +21,11 @@ def fillCity(dirname, cityJson):
             city.city_id = item['postal_code']
             city.city_name = cityName
             city.area_name = item['area_name']
-            # city.aqi_id = Aqi.objects.get(aqi_area=cityName)
+            try:
+                q1 = Aqi.objects.get(aqi_area=cityName)
+                city.aqi_id = q1.aqi_id
+            except:
+                pass
             city.save()
     print('City table done!')
 
