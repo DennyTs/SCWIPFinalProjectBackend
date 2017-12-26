@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from rest_framework import routers
 from backend import urls as backUrls, views as backViews
-from backend.views import home
+# from backend.views import home
 
 
 # router = routers.DefaultRouter()
@@ -29,9 +29,9 @@ from backend.views import home
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', home), 
+    # url(r'^$', home), 
     url(r'^api/', include(backUrls)),
-    url(r'^backend/', include(backUrls, namespace='main')),
+    # url(r'^backend/', include(backUrls, namespace='main')),
 
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 

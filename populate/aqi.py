@@ -4,8 +4,12 @@ from backend.models import Institution, City, Capacity, Institutions_Unit, Aqi
 
 
 def allInit():
+    Institution.objects.all().delete()
+    City.objects.all().delete()
     Aqi.objects.all().delete()
-
+    Capacity.objects.all().delete()
+    Institutions_Unit.objects.all().delete()
+    
 def read_json(dirname, file):
     return json.loads(open(dirname + '/' + file).read())
 
