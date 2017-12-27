@@ -1,8 +1,6 @@
-from populate import admin, institutions, aqi
+from populate import admin, institutions
 
 # admin.populate()
 
-# institutions.populate()
-aqi.populate()
 institutions.populate()
 

@@ -20,6 +20,10 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from rest_framework import routers
 from backend import urls as backUrls, views as backViews
+from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import refresh_jwt_token
+from rest_framework_jwt.views import verify_jwt_token
+
 # from backend.views import home
 
 
@@ -32,7 +36,11 @@ urlpatterns = [
     # url(r'^$', home), 
     url(r'^api/', include(backUrls)),
     # url(r'^backend/', include(backUrls, namespace='main')),
-
+    url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+    url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^api-token-refresh/', refresh_jwt_token),
+    url(r'^api-token-verify/', verify_jwt_token),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
 ]

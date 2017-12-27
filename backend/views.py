@@ -5,26 +5,29 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-# from django.http import Http404
-from .serializers import UserRegistrationSerializer, InstitutionUnitSerializer, CitySerializer, FavoriteSerializer, CommentSerializer, InstitutionSerializer
+
+from .serializers import InstitutionUnitSerializer, CitySerializer, FavoriteSerializer, CommentSerializer, InstitutionSerializer
 from rest_framework import generics,generics, permissions, status, views
 from rest_framework import mixins
 from .models import Institution, Institutions_Unit, Capacity, City, Comment, Favorite
+
+#register
 from rest_framework.authentication import TokenAuthentication
-
-
-# from django.shortcuts import render, redirect
-# from django.template.loader import get_template
-# from django.http import HttpResponse
-
-# from django.contrib import messages
-# from .form import UserForm, UserProfileForm
-
-# from django.contrib.auth import authenticate
-# from django.contrib.auth import login as auth_login
-
-# from django.contrib.auth import logout as auth_logout
-
+from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.debug import sensitive_post_parameters
+from rest_framework.permissions import AllowAny
+from rest_framework import status
+from allauth.account.adapter import get_adapter
+# from allauth.account.views import ConfirmEmailView
+from allauth.account.utils import complete_signup
+from allauth.account import app_settings as allauth_settings
+from rest_auth.app_settings import (TokenSerializer, JWTSerializer, create_token)
+from rest_auth.models import TokenModel
+from rest_auth.registration.serializers import (SocialLoginSerializer, VerifyEmailSerializer)
+from rest_auth.utils import jwt_encode
+from rest_auth.views import LoginView
+# from .app_settings import RegisterSerializer, register_permission_classes
 
 # class UserViewSet(viewsets.ModelViewSet):
 #     """
@@ -40,25 +43,9 @@ from rest_framework.authentication import TokenAuthentication
 #     queryset = Group.objects.all()
 #     serializer_class = GroupSerializer
 
-# class InstitutionUnitList(APIView):
-#     def get_object(self, pk):
-#         try:
-#             return Institutions_Unit.objects.filter(pk=pk)
-#         except Institutions_Unit.DoesNotExist:
-#             raise Http404    
-    
-#     def get(self, request, pk, format=None):
-#         queryset = self.get_object(pk)
-#         serializer = InstitutionUnitSerializer(queryset)
-#         return Response(serializer.data)
-
-# class UserRegistrationAPIView(generics.CreateAPIView):
-#     """
-#     Endpoint for user registration.
-#     """
-#     permission_classes = (permissions.AllowAny, )
-#     serializer_class = UserRegistrationSerializer
-#     queryset = User.objects.all()
+sensitive_post_parameters_m = method_decorator(
+    sensitive_post_parameters('password1', 'password2')
+)
 
 
 #7 機構：搜尋名稱

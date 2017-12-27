@@ -3,6 +3,22 @@ from rest_framework import serializers
 from .models import Institution, Institutions_Unit, Capacity, City, Aqi, Comment, Favorite, UserProfile
 from django.conf import settings
 
+#Register
+from django.contrib.auth import get_user_model
+from django.http import HttpRequest
+from django.utils.translation import ugettext_lazy as _
+from rest_framework import serializers
+from requests.exceptions import HTTPError
+
+try:
+    from allauth.account import app_settings as allauth_settings
+    from allauth.utils import (email_address_exists,
+                               get_username_max_length)
+    from allauth.account.adapter import get_adapter
+    from allauth.account.utils import setup_user_email
+except ImportError:
+    raise ImportError("allauth needs to be added to INSTALLED_APPS.")
+
 
 # class UserSerializer(serializers.HyperlinkedModelSerializer):
 #     class Meta:
@@ -13,29 +29,6 @@ from django.conf import settings
 #     class Meta:
 #         model = Group
 #         fields = ('url', 'name')
-
-
-class UserRegistrationSerializer(serializers.ModelSerializer):
-    
-    email = serializers.EmailField(
-        required=True,
-        label="Email Address"
-    )
-
-    password = serializers.CharField(
-        required=True,
-        label="Password",
-        style={'input_type': 'password'}
-    )
-
-    fullName = serializers.CharField(
-        required=True,
-        label="Name"
-    )
-
-    class Meta(object):
-        model = User
-        fields = ['fullName', 'email', 'password']
 
 
 class InstitutionUnitSerializer(serializers.ModelSerializer):

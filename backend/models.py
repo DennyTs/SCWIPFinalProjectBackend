@@ -39,8 +39,6 @@ class City(models.Model):
     city_id = models.IntegerField(primary_key=True)
     city_name = models.CharField(max_length=10)
     area_name = models.CharField(max_length=10)
-    aqi = models.ForeignKey(
-        'AQI', related_name='aqi', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.city_name)
@@ -79,9 +77,10 @@ class Aqi(models.Model):
     aqi_area = models.CharField(max_length=10)
     aqi_index = models.IntegerField()
     aqi_pubdate = models.DateTimeField(auto_now_add=True)
+    city_id =  models.ForeignKey('City', related_name='cityaqi', on_delete=models.CASCADE)
        
     def __str__(self):
-        return str(self.aqi_area)
+        return str(self.aqi_index)
 
     class Meta:
         db_table = 'AQI'

@@ -11,8 +11,7 @@ urlpatterns = [
     url(r'^8/(?P<pk>[0-9]+)/$', views.CommentDetail.as_view()),
     url(r'^7/(?P<ins_name>.+)/$', views.InstitutionSearchList.as_view()),
     url(r'^6/', views.InstitutionListAll.as_view()),
-    # url(r'^register/$',views.UserRegistrationAPIView.as_view(),name='register'),
-
+  
     # url(r'^7/',
     # url(r'^6/',
     # url(r'^5/', vie
