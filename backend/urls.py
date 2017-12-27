@@ -1,18 +1,19 @@
 from django.conf.urls import url, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
+from django.views.generic import TemplateView
 
 
 urlpatterns = [
 
-    url(r'^12/', views.CityListView.as_view()),
-    url(r'^11/', views.FavoriteListOnlyView.as_view()),
-    url(r'^10/(?P<pk>[0-9]+)/$', views.FavoriteDeleteView.as_view()),
-    url(r'^9/(?P<pk>[0-9]+)/$', views.FavoriteAddView.as_view()),
-    url(r'^8/(?P<pk>[0-9]+)/$', views.CommentDetailView.as_view()),
+    url(r'^list-city/', views.CityListView.as_view()),
+    url(r'^list-favorite/', views.FavoriteListOnlyView.as_view()),
+    url(r'^del-favorite/(?P<pk>[0-9]+)/$', views.FavoriteDeleteView.as_view()),
+    url(r'^add-favorite/(?P<pk>[0-9]+)/$', views.FavoriteAddView.as_view()),
+    url(r'^add-comment/(?P<pk>[0-9]+)/$', views.CommentDetailView.as_view()),
     # url(r'^8_5/(?P<pk>[0-9]+)/$/$', views.CommentListAll.as_view()),
-    url(r'^7/(?P<ins_name>.+)/$', views.InstitutionSearchListView.as_view()),
-    url(r'^6/', views.InstitutionListAllView.as_view()),
+    url(r'^search-institution/(?P<ins_name>.+)/$', views.InstitutionSearchListView.as_view()),
+    url(r'^list-institution/', views.InstitutionListAllView.as_view()),
     url(r'^register/$', views.RegisterView.as_view(), name='rest_register'),
     url(r'^verify-email/$', views.VerifyEmailView.as_view(), name='rest_verify_email'),url(r'^account-confirm-email/(?P<key>[-:\w]+)/$', TemplateView.as_view(),
         name='account_confirm_email'),
