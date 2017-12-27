@@ -3,6 +3,10 @@ from django.conf import settings
 from django.contrib.auth.models import User  
 from django.utils import timezone
 
+from rest_framework.authtoken.models import Token as DefaultTokenModel
+from .utils import import_callable
+
+
 # Member = settings.AUTH_USER_MODEL
 # class Member(models.Model):
 #     mem_id = models.IntegerField(primary_key=True)
@@ -83,7 +87,7 @@ class Aqi(models.Model):
         return str(self.aqi_index)
 
     class Meta:
-        db_table = 'AQI'
+        db_table = 'Aqi'
         # ordering = ('aqi_id')
 
 class Comment(models.Model):
@@ -127,3 +131,7 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.fullName + ' (' + self.user.username + ')'
+
+#login用到的Token model
+TokenModel = import_callable(
+    getattr(settings, 'REST_AUTH_TOKEN_MODEL', DefaultTokenModel))

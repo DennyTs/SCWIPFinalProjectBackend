@@ -24,12 +24,6 @@ from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import refresh_jwt_token
 from rest_framework_jwt.views import verify_jwt_token
 
-# from backend.views import home
-
-
-# router = routers.DefaultRouter()
-# router.register(r'users', backViews.UserViewSet)
-# router.register(r'groups', backViews.GroupViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

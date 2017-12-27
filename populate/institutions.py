@@ -47,12 +47,9 @@ def clasify(Area):
     else:
         pass
 
-def fillAqi():
+def fillAqi(dirname, aqiJson, cityJson):
     a = 0 
     print('AQI populate')
-    aqiJson = 'AQI.json'
-    cityJson = 'city.json'
-    dirname = '/Users/cytsai/FinalProject/SCWIP/csvToJson/'
     aqiContent = read_json(dirname, aqiJson)
     cityJsonContent = read_json(dirname, cityJson)
     
@@ -143,7 +140,7 @@ def populate():
     aqiJson = 'AQI.json'
     fillCity(dirname, cityJson)
     fillInstitution(dirname + filterJsonDir)
-    fillAqi()
+    fillAqi(dirname, aqiJson, cityJson)
 
 
 
