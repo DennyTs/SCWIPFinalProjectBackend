@@ -381,3 +381,9 @@ class CitySerializer(serializers.ModelSerializer):
         model = City
         fields = '__all__'
         ordering = ['city_id']
+
+class CapacitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Capacity
+        fields = '__all__'
+        ordering = ['cap_id']

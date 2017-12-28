@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.conf import settings
 
-from .serializers import InstitutionUnitSerializer, CitySerializer, FavoriteSerializer, CommentSerializer, InstitutionSerializer, RegisterSerializer
+from .serializers import InstitutionUnitSerializer, CitySerializer, FavoriteSerializer, CommentSerializer, InstitutionSerializer, RegisterSerializer,CapacitySerializer
 from rest_framework import generics,generics, permissions, status, views
 from rest_framework import mixins
 from .models import Institution, Institutions_Unit, Capacity, City, Comment, Favorite
@@ -253,7 +253,7 @@ class PasswordChangeView(GenericAPIView):
 
 # 註冊
 sensitive_post_parameters_m = method_decorator(
-    sensitive_post_parameters('password1', 'password2')
+    sensitive_post_parameters('password1')
 )
 
 class RegisterView(generics.CreateAPIView):
@@ -319,6 +319,21 @@ class VerifyEmailView(APIView, ConfirmEmailView):
         confirmation.confirm(self.request)
         return Response({'detail': _('ok')}, status=status.HTTP_200_OK)
 
+
+class InstitutionCapList(generics.ListAPIView):
+    serializer_class = CapacitySerializer
+    
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        q = self.kwargs['ins_id']
+        b = Institutions_Unit.objects.filter(Ins_id = q).values('Cap_id')
+        items = []
+        for a in b:
+            items.extend(list(Capacity.objects.filter(cap_id = a['Cap_id']).values('cap_name')))
+        return items
 
 
 #7 機構：搜尋名稱
