@@ -168,3 +168,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+#解決Errno 61 connection refused的問題
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

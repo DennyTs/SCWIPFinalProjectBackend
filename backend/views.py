@@ -252,6 +252,7 @@ class PasswordChangeView(GenericAPIView):
         return Response({"detail": _("New password has been saved.")})
 
 # 註冊
+
 sensitive_post_parameters_m = method_decorator(
     sensitive_post_parameters('password1')
 )
@@ -320,22 +321,6 @@ class VerifyEmailView(APIView, ConfirmEmailView):
         return Response({'detail': _('ok')}, status=status.HTTP_200_OK)
 
 
-class InstitutionCapList(generics.ListAPIView):
-    serializer_class = CapacitySerializer
-    
-    def get_queryset(self):
-        """
-        This view should return a list of all the purchases for
-        the user as determined by the username portion of the URL.
-        """
-        q = self.kwargs['ins_id']
-        b = Institutions_Unit.objects.filter(Ins_id = q).values('Cap_id')
-        items = []
-        for a in b:
-            items.extend(list(Capacity.objects.filter(cap_id = a['Cap_id']).values('cap_name')))
-        return items
-
-
 #7 機構：搜尋名稱
 class InstitutionSearchListView(generics.ListAPIView):
     serializer_class = InstitutionSerializer
@@ -378,15 +363,47 @@ class CommentDetailView(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
-# 8.5 依照單位來顯示留言
-# class CommentListAll(generics.ListAPIView):
-#     serializer_class = CommentSerializer
+#輸入機構id回傳cap_name
+class InstitutionCapList(generics.ListAPIView):
+    serializer_class = CapacitySerializer
+    
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        q = self.kwargs['ins_id']
+        b = Institutions_Unit.objects.filter(Ins_id = q).values('Cap_id')
+        items = []
+        for b in b:
+            items.extend(list(Capacity.objects.filter(cap_id = a['Cap_id']).values('cap_name')))
+        return items
 
-#     def get_queryset(self):
-#         """
-#         This view should return a list of all the purchases for
-#         the user as determined by the username portion of the URL.
-#         """
-#         a = self.kwargs['pk']
-#         queryset = 
-#         return Comment.objects.filter(ins=)
+#輸入機構id回傳機構詳細資訊
+class InstitutionDetail(generics.ListAPIView):
+    serializer_class = InstitutionSerializer
+    
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        queryset = self.kwargs['pk']
+        return Institution.objects.filter(ins_id=queryset)
+
+
+#顯示該機構所有單位留言
+class CommentListView(generics.ListAPIView):
+    serializer_class = CommentSerializer
+    
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        q = self.kwargs['ins_id']
+        insunitid = Institutions_Unit.objects.filter(Ins_id = q).values('id')
+        items = []
+        for insunitid in insunitid :
+            items.extend(list(Comment.objects.filter(ins_id=insunitid['id'])))
+        return items

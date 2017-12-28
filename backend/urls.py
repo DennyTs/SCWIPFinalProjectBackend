@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^list-favorite/', views.FavoriteListOnlyView.as_view()),
     url(r'^del-favorite/(?P<pk>[0-9]+)/$', views.FavoriteDeleteView.as_view()),
     url(r'^add-favorite/(?P<pk>[0-9]+)/$', views.FavoriteAddView.as_view()),
-    url(r'^add-comment/(?P<pk>[0-9]+)/$', views.CommentDetailView.as_view()),
+    url(r'^add-comment/(?P<ins_id>[0-9]+)/$', views.CommentDetailView.as_view()),
     # url(r'^8_5/(?P<pk>[0-9]+)/$/$', views.CommentListAll.as_view()),
     url(r'^search-institution/(?P<ins_name>.+)/$', views.InstitutionSearchListView.as_view()),
     url(r'^list-institution/', views.InstitutionListAllView.as_view()),
@@ -18,8 +18,8 @@ urlpatterns = [
     url(r'^verify-email/$', views.VerifyEmailView.as_view(), name='rest_verify_email'),url(r'^account-confirm-email/(?P<key>[-:\w]+)/$', TemplateView.as_view(),
         name='account_confirm_email'),
     url(r'^ins_unit_cap-list/(?P<ins_id>[0-9]+)/$', views.InstitutionCapList.as_view()),
-    
-    # url(r'^6/',
+    url(r'^institution-detail/(?P<pk>[0-9]+)/$', views.InstitutionDetail.as_view()),
+    url(r'^list-ins_comment/(?P<ins_id>[0-9]+)/$',views.CommentListView.as_view()),
     # url(r'^5/', vie
 
 
