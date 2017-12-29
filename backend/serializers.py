@@ -387,3 +387,9 @@ class CapacitySerializer(serializers.ModelSerializer):
         model = Capacity
         fields = '__all__'
         ordering = ['cap_id']
+
+class AqiSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Aqi
+        fields = '__all__'
+        ordering = ['aqi_id']

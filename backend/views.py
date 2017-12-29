@@ -7,10 +7,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.conf import settings
 
-from .serializers import InstitutionUnitSerializer, CitySerializer, FavoriteSerializer, CommentSerializer, InstitutionSerializer, RegisterSerializer,CapacitySerializer
+from .serializers import InstitutionUnitSerializer, CitySerializer, FavoriteSerializer, CommentSerializer, InstitutionSerializer, RegisterSerializer,CapacitySerializer,AqiSerializer
 from rest_framework import generics,generics, permissions, status, views
 from rest_framework import mixins
-from .models import Institution, Institutions_Unit, Capacity, City, Comment, Favorite
+from .models import Institution, Institutions_Unit, Capacity, City, Comment, Favorite, Aqi
 
 #register
 from rest_framework.authentication import TokenAuthentication
@@ -376,7 +376,7 @@ class InstitutionCapList(generics.ListAPIView):
         b = Institutions_Unit.objects.filter(Ins_id = q).values('Cap_id')
         items = []
         for b in b:
-            items.extend(list(Capacity.objects.filter(cap_id = a['Cap_id']).values('cap_name')))
+            items.extend(list(Capacity.objects.filter(cap_id = b['Cap_id']).values('cap_name')))
         return items
 
 #輸入機構id回傳機構詳細資訊
@@ -407,3 +407,16 @@ class CommentListView(generics.ListAPIView):
         for insunitid in insunitid :
             items.extend(list(Comment.objects.filter(ins_id=insunitid['id'])))
         return items
+
+#輸入機構id回傳該地區aqi指數
+class InstitutionAqiDetailView(generics.ListAPIView):
+    serializer_class = AqiSerializer
+    
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        q = self.kwargs['ins_id']
+        cityid = Institution.objects.filter(ins_id = q).values('city')
+        return Aqi.objects.filter(city_id = cityid)

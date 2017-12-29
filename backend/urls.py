@@ -20,8 +20,7 @@ urlpatterns = [
     url(r'^ins_unit_cap-list/(?P<ins_id>[0-9]+)/$', views.InstitutionCapList.as_view()),
     url(r'^institution-detail/(?P<pk>[0-9]+)/$', views.InstitutionDetail.as_view()),
     url(r'^list-ins_comment/(?P<ins_id>[0-9]+)/$',views.CommentListView.as_view()),
-    # url(r'^5/', vie
-
+    url(r'^list-ins_aqi/(?P<ins_id>[0-9]+)/$', views.InstitutionAqiDetailView.as_view()),
 
     #以下為login
     # URLs that do not require a session or valid token
