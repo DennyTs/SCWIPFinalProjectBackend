@@ -347,6 +347,7 @@ class CityListView(generics.ListAPIView):
 class FavoriteListOnlyView(generics.ListAPIView):
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
+#在url上輸入使用者的姓名回傳對應的最愛
 
 #9  新增我的最愛（同樣還沒做身份驗證）
 class FavoriteAddView(generics.ListCreateAPIView):
@@ -420,3 +421,15 @@ class InstitutionAqiDetailView(generics.ListAPIView):
         q = self.kwargs['ins_id']
         cityid = Institution.objects.filter(ins_id = q).values('city')
         return Aqi.objects.filter(city_id = cityid)
+
+#輸入機構id回傳該機構的底下所有單位
+class InstitutionsHasUnitView(generics.ListAPIView):
+    serializer_class = InstitutionUnitSerializer
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        q = self.kwargs['ins_id']
+        return Institutions_Unit.objects.filter(Ins_id = q)
