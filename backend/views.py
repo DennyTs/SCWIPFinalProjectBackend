@@ -433,3 +433,7 @@ class InstitutionsHasUnitView(generics.ListAPIView):
         """
         q = self.kwargs['ins_id']
         return Institutions_Unit.objects.filter(Ins_id = q)
+
+class AqiListAllView(generics.ListAPIView):
+    queryset = Aqi.objects.all()
+    serializer_class = AqiSerializer
